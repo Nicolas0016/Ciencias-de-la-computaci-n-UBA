@@ -129,7 +129,6 @@ ordenar:: [Integer]-> [Integer]
 ordenar [x] = [x]
 ordenar (xs) = menor xs :  ordenar (eliminarItem (menor xs) xs)
 
-
 -- Ejercicio 4
 type Text = [Char]
 sacarBlancosRepetidos :: Text -> Text
@@ -274,11 +273,14 @@ eliminarContacto nombre ((contactName,phone):xs)
 
 
 -- Clase 28
-
 quitar :: (Eq t) => t -> [t] ->[t]
-
 quitar _  [] = []
 quitar t (x:xs)
     | x == t = xs
     | otherwise = x: quitar t xs
 
+maximo2 :: [Integer] -> Integer
+maximo2 [x] = x
+maximo2 (a:b:xs)
+    | a < b = maximo (a:xs)
+    | otherwise = maximo (b:xs)
