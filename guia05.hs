@@ -121,9 +121,9 @@ eliminarItem n (x: xs)
 
 menor :: [Integer] -> Integer
 menor [x] = x
-menor (x:xs)
-    | x > xsCabeza xs = menor (xsCabeza xs : xsCola xs)
-    | otherwise = menor (x : xsCola xs )
+menor (x:b:xs)
+    | x > b = menor (b : xs)
+    | otherwise = menor (x :xs )
 
 ordenar:: [Integer]-> [Integer]
 ordenar [x] = [x]
@@ -254,9 +254,7 @@ type ContactosTel = [Contacto]
 
 enLosContactos :: Nombre -> ContactosTel -> Bool
 enLosContactos x [] = False 
-enLosContactos nombre ((contactName, _):xs)
-    | nombre == contactName = True
-    | otherwise = enLosContactos nombre xs
+enLosContactos nombre ((contactName, _):xs) =   nombre == contactName || enLosContactos nombre xs
 
 agregarContacto :: Contacto -> ContactosTel -> ContactosTel
 agregarContacto newContact [] = [newContact] 
@@ -284,3 +282,4 @@ maximo2 [x] = x
 maximo2 (a:b:xs)
     | a < b = maximo (a:xs)
     | otherwise = maximo (b:xs)
+
