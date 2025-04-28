@@ -53,7 +53,6 @@ eliminarRepetidos (item:items)
     | pertenece item items = eliminarRepetidos (items)
     | otherwise = item : eliminarRepetidos(items)
 
-
 todosPertenecen :: Eq t => [t] -> [t] -> Bool
 todosPertenecen [] _ = True
 todosPertenecen (x:xs) lista = pertenece x lista && todosPertenecen xs lista
@@ -114,7 +113,7 @@ multiplosDeN n (x:xs)
     | mod x n == 0 = x : multiplosDeN n (xs)
     | otherwise = multiplosDeN n (xs)
 
-eliminarItem :: Eq a => a -> [a] -> [a]
+eliminarItem :: Eq t => t -> [t] -> [t]
 eliminarItem _ [] = []
 eliminarItem n (x: xs)
     | n == x = xs
@@ -140,27 +139,30 @@ sacarBlancosRepetidos (a:b:xs)
     | a== b && a == ' ' = sacarBlancosRepetidos(b:xs)
     | otherwise = a:sacarBlancosRepetidos(b:xs)
 
+sacarEspacioInicio :: [Char] -> [Char]
 sacarEspacioInicio (' ':xs) = xs
 sacarEspacioInicio xs = xs
 
+sacarEspacioFinal :: [Char] -> [Char]
 sacarEspacioFinal [' '] = []
 sacarEspacioFinal [] = []
 sacarEspacioFinal (x:xs)= x: sacarEspacioFinal(xs)
 
 
+contarPalabrasFormat :: Num a => [Char] -> a
 contarPalabrasFormat [x] = 1
 contarPalabrasFormat (x:xs)
     | x == ' ' = 1 + contarPalabrasFormat xs
     | otherwise = contarPalabrasFormat xs  
 
 contarPalabras ::Text -> Integer
-contarPalabras (xs) = contarPalabrasFormat palabrasFormateadas
+contarPalabras xs = contarPalabrasFormat palabrasFormateadas
     where palabrasFormateadas = sacarEspacioFinal( sacarEspacioInicio (sacarBlancosRepetidos xs))
 
 palabra :: Text->Text
 palabra [] = []
 palabra (' ' : _)= []
-palabra (x:xs) = x:palabra(xs)
+palabra (x:xs) = x:palabra xs
 
 resto :: Text-> Text
 resto [] = []
@@ -242,7 +244,6 @@ descomponerEnPrimos ::[Integer] -> [[Integer]]
 descomponerEnPrimos [] = []
 descomponerEnPrimos (x:xs) = descomponerPrimo x : descomponerEnPrimos xs   
 
-
 -- Ejercicio 6
 
 type Texto = [Char]
@@ -270,3 +271,14 @@ eliminarContacto _ [] = []
 eliminarContacto nombre ((contactName,phone):xs)
     | nombre == contactName = xs
     | otherwise = (contactName,phone) : eliminarContacto nombre xs
+
+
+-- Clase 28
+
+quitar :: (Eq t) => t -> [t] ->[t]
+
+quitar _  [] = []
+quitar t (x:xs)
+    | x == t = xs
+    | otherwise = x: quitar t xs
+
