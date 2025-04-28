@@ -2,7 +2,7 @@
 
 longitud :: [t]-> Integer
 longitud [] = 0
-longitud (_:xs) = 1 + longitud (xs)
+longitud (_:xs) = 1 + longitud xs
 
 ultimo :: [t]-> t
 ultimo [x] = x
@@ -10,11 +10,11 @@ ultimo (x: xs) = ultimo xs
 
 principio :: [t]-> [t]
 principio [_] = []
-principio (x:xs) = x : principio(xs)
+principio (x:xs) = x : principio xs
 
 reverso :: [t]-> [t]
 reverso [] = []
-reverso xs= (ultimo xs): (reverso (principio xs))
+reverso xs= ultimo xs: reverso (principio xs)
 
 
 -- Ejercicio 2
@@ -174,7 +174,7 @@ palabras (' ':xs) = palabras xs
 palabras xs = palabra xs : palabras (resto xs)
 
 palabraMasLarga::Text -> Text
-palabraMasLarga xs = palabraMasLargaAux (palabras (xs))
+palabraMasLarga xs = palabraMasLargaAux (palabras xs)
 
 palabraMasLargaAux [x] = x
 palabraMasLargaAux (a:b:xs)
@@ -260,7 +260,7 @@ agregarContacto :: Contacto -> ContactosTel -> ContactosTel
 agregarContacto newContact [] = [newContact] 
 agregarContacto (newName, newPhone) ((contactName, contactPhone):xs)
     | newName == contactName = (contactName, newPhone) : xs
-    | otherwise = (contactName, contactPhone): agregarContacto (newName, newPhone) (xs)
+    | otherwise = (contactName, contactPhone): agregarContacto (newName, newPhone) xs
 
 
 eliminarContacto :: Nombre -> ContactosTel -> ContactosTel
